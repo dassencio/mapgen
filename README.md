@@ -8,10 +8,10 @@ as the marker locations and styles as input and generates an HTML
 page as output. This page contains all the necessary JavaScript
 and CSS code it needs inlined into it, so it can be directly opened in a browser
 without the need for a web server such as Apache or similar. This also means it
-can be easily shared with others via e-mail or added to an existing webpage
-through an `<iframe>` element.
+can be easily shared with others (e.g. via e-mail) or added to an existing
+webpage through an `<iframe>` element.
 
-Here is an example of what a typical input YAML file looks like:
+Below is an example of what a typical input YAML file looks like:
 
 ```yaml
 map settings:
@@ -43,11 +43,12 @@ Here are some more interesting examples:
 
 # License
 
-Except for [Leaflet](https://leafletjs.com/) files and icons from
-[Flaticon](https://www.flaticon.com/), all code from this project is licensed
-under the GPLv3. See the [`LICENSE`](https://github.com/dassencio/mapgen/tree/master/LICENSE) file for more information.
+Except for files from the [Leaflet](https://leafletjs.com/) library and icons
+from [Flaticon](https://www.flaticon.com/), all code from this project is
+licensed under the GPLv3. See the [`LICENSE`](https://github.com/dassencio/mapgen/tree/master/LICENSE)
+file for more information.
 
-Files from the Leaflet project are covered under the
+Files from the Leaflet library are covered under the
 [2-clause BSD license](https://github.com/Leaflet/Leaflet/blob/master/LICENSE).
 
 Icons from Flaticon were produced by Google, Freepik and Smashicons. Those are
@@ -69,6 +70,9 @@ on `output.html`:
 
     ./mapgen -i input.yaml -o output.html
 
+If you omit `-o output.html` on the command above, the generated HTML will be
+printed on the standard output (`stdout`).
+
 # YAML input
 
 ## Introduction
@@ -78,6 +82,10 @@ can be displayed for a marker depending on whether it is selected or not. This
 allows the user to create maps which are more fun to interact with by making
 the icon of a selected marker look different from the icons of the
 unselected (normal) markers. Only one marker can be selected at a time.
+
+**NOTE**: When running `mapgen`, relative paths to icons files appearing on
+the input YAML file will be resolved from the current working directory, not
+from the location of the YAML file!
 
 If `popup contents` are defined for a marker, a popup will be shown when it is
 selected. Markers with no `popup contents` defined are assumed to be
@@ -94,10 +102,10 @@ The input YAML file is divided into three main sections:
   should be displayed or not.
 
 - `markers`: List of markers to be displayed on the map. Each marker must have
-  a pair of coordinates specified so it can be drawn on the map. A marker is not
-  required to have a popup (`popup contents` is an optional attribute).
+  a pair of coordinates specifying its location. A marker is not required
+  to have a popup (`popup contents` is an optional attribute).
 
-## Attributes in `default marker settings`:
+### Attributes in `default marker settings`:
 
 - `icon`: Path to an icon file (an image) or the name of a built-in icon to be
   used as the default icon for markers in both "normal" and "selected" states.
@@ -136,7 +144,7 @@ The input YAML file is divided into three main sections:
 - `selected icon dimensions`: Equivalent of `normal icon dimensions` for
   selected icons.
 
-## Attributes in `map settings`:
+### Attributes in `map settings`:
 
 - `language`: Language used to display labels on the map (e.g. country, city
   and street names). Valid values are either `local` to display labels using
@@ -155,13 +163,13 @@ The input YAML file is divided into three main sections:
   if applicable. Valid values are `bottom left`, `bottom right`, `top left`
   and `top right`. Defaults to `top right`.
 
-## Marker entries in `markers`:
+### Marker entries in `markers`:
 
 All markers must be entered as a list under the `markers` section of the YAML
 file. Every marker accepts the same attributes as the ones from
-`default marker settings`, but those will only apply for the marker being
+`default marker settings`, but those will only be applied to the marker being
 defined, i.e., values for attributes defined on a marker have higher precedence
-than values for the attributes with the same names defined under
+than those for attributes with same names specified under
 `default marker settings`.
 
 Additional attributes:
