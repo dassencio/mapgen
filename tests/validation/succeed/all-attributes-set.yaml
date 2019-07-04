@@ -1,0 +1,27 @@
+default marker settings:
+  icon: house
+  icon color: red
+  icon dimensions: [40, 40]
+  normal icon: airplane
+  normal icon color: blue
+  normal icon dimensions: [40, 40]
+  selected icon: placeholder
+  selected icon color: green
+  selected icon dimensions: [40, 40]
+map settings:
+  language: local
+  show zoom control: yes
+  title: Test with all attributes set
+  zoom control position: bottom left
+markers:
+  - coordinates: [0, 1]
+    icon: house
+    icon color: red
+    icon dimensions: [40, 40]
+    normal icon: airplane
+    normal icon color: blue
+    normal icon dimensions: [40, 40]
+    selected icon: placeholder
+    selected icon color: green
+    selected icon dimensions: [40, 40]
+    popup contents: Marker

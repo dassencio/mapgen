@@ -1,0 +1,34 @@
+default marker settings:
+  normal icon dimensions: [60, 60]
+  selected icon dimensions: [90, 90]
+map settings:
+  show zoom control: yes
+  title: Largest countries in Western Europe
+markers:
+  - coordinates: [47.2000338, 13.199959]
+    icon: flags/austria.svg
+    popup contents: <a href='https://en.wikipedia.org/wiki/Austria'>Austria</a>
+  - coordinates: [50.6402809, 4.6667145]
+    icon: flags/belgium.svg
+    popup contents: <a href='https://en.wikipedia.org/wiki/Belgium'>Belgium</a>
+  - coordinates: [49.8167003, 15.4749544]
+    icon: flags/czech-republic.svg
+    popup contents: <a href='https://en.wikipedia.org/wiki/Czech_Republic'>Czech Republic</a>
+  - coordinates: [46.603354, 1.8883335]
+    icon: flags/france.svg
+    popup contents: <a href='https://en.wikipedia.org/wiki/France'>France</a>
+  - coordinates: [51.0834196, 10.4234469]
+    icon: flags/germany.svg
+    popup contents: <a href='https://en.wikipedia.org/wiki/Germany'>Germany</a>
+  - coordinates: [52.865196, -7.9794599]
+    icon: flags/ireland.svg
+    popup contents: <a href='https://en.wikipedia.org/wiki/Ireland'>Ireland</a>
+  - coordinates: [52.5001698, 5.7480821]
+    icon: flags/netherlands.svg
+    popup contents: <a href='https://en.wikipedia.org/wiki/Netherlands'>Netherlands</a>
+  - coordinates: [46.7985624, 8.2319736]
+    icon: flags/switzerland.svg
+    popup contents: <a href='https://en.wikipedia.org/wiki/Switzerland'>Switzerland</a>
+  - coordinates: [54.7023545, -3.2765753]
+    icon: flags/united-kingdom.svg
+    popup contents: <a href='https://en.wikipedia.org/wiki/United_Kingdom'>United Kingdom</a>

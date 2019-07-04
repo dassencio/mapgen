@@ -1,0 +1,112 @@
+# YAML schema for user-defined maps.
+type: map
+mapping:
+  default marker settings:
+    type: map
+    mapping:
+      icon:
+        type: text
+      icon color:
+        type: text
+      icon dimensions:
+        type: seq
+        range:
+          min: 2
+          max: 2
+        sequence:
+          - type: number
+            range:
+              min-ex: 0
+      normal icon:
+        type: text
+      normal icon color:
+        type: text
+      normal icon dimensions:
+        type: seq
+        range:
+          min: 2
+          max: 2
+        sequence:
+          - type: number
+            range:
+              min-ex: 0
+      selected icon:
+        type: text
+      selected icon color:
+        type: text
+      selected icon dimensions:
+        type: seq
+        range:
+          min: 2
+          max: 2
+        sequence:
+          - type: number
+            range:
+              min-ex: 0
+  map settings:
+    type: map
+    mapping:
+      language:
+        type: str
+      show zoom control:
+        type: str
+        enum: ["no", "yes"]
+      title:
+        type: text
+      zoom control position:
+        type: str
+        enum: ["bottom left", "bottom right", "top left", "top right"]
+  markers:
+    type: seq
+    sequence:
+      - type: map
+        mapping:
+          coordinates:
+            type: seq
+            range:
+              min: 2
+              max: 2
+            required: True
+            sequence:
+              - type: float
+          icon:
+            type: text
+          icon color:
+            type: text
+          icon dimensions:
+            type: seq
+            range:
+              min: 2
+              max: 2
+            sequence:
+              - type: number
+                range:
+                  min-ex: 0
+          normal icon:
+            type: text
+          normal icon color:
+            type: text
+          normal icon dimensions:
+            type: seq
+            range:
+              min: 2
+              max: 2
+            sequence:
+              - type: number
+                range:
+                  min-ex: 0
+          popup contents:
+            type: text
+          selected icon:
+            type: text
+          selected icon color:
+            type: text
+          selected icon dimensions:
+            type: seq
+            range:
+              min: 2
+              max: 2
+            sequence:
+              - type: number
+                range:
+                  min-ex: 0

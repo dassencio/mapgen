@@ -1,0 +1,4 @@
+default marker settings:
+  normal icon: __invalid_icon__
+markers:
+  - coordinates: [0, 0]

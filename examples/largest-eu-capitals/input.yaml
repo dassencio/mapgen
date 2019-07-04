@@ -1,0 +1,13 @@
+map settings:
+  title: Largest capital cities of the European Union
+markers:
+  - coordinates: [51.5073219, -0.1276474]
+    popup contents: London, United Kingdom (8.83 million)
+  - coordinates: [52.5170365, 13.3888599]
+    popup contents: Berlin, Germany (3.75 million)
+  - coordinates: [40.4167047, -3.7035825]
+    popup contents: Madrid, Spain (3.23 million)
+  - coordinates: [41.894802, 12.4853384]
+    popup contents: Rome, Italy (2.87 million)
+  - coordinates: [48.8566101, 2.3514992]
+    popup contents: Paris, France (2.15 million)

@@ -1,0 +1,161 @@
+default marker settings:
+  normal icon: suse-logo-normal.svg
+  normal icon dimensions: [60, 30]
+  selected icon: suse-logo-selected.svg
+  selected icon dimensions: [90, 45]
+map settings:
+  show zoom control: yes
+  title: Locations of SUSE offices (June 2019)
+markers:
+  - coordinates: [-34.6075616, -58.437076]
+    popup contents: Buenos Aires, Argentina
+  - coordinates: [48.2083537, 16.3725042]
+    popup contents: Vienna, Austria
+  - coordinates: [-37.8142176, 144.9631608]
+    popup contents: Melbourne, Australia
+  - coordinates: [-33.8548157, 151.2164539]
+    popup contents: Sydney, Australia
+  - coordinates: [50.8465573, 4.351697]
+    popup contents: Brussels, Belgium
+  - coordinates: [-23.5506507, -46.6333824]
+    popup contents: Sao Paulo, Brazil
+  - coordinates: [49.2608724, -123.1139529]
+    popup contents: Vancouver, Canada
+  - coordinates: [-33.4377968, -70.6504451]
+    popup contents: Santiago, Chile
+  - coordinates: [39.906217, 116.3912757]
+    popup contents: Beijing, China
+  - coordinates: [31.2252985, 121.4890497]
+    popup contents: Shanghai, China
+  - coordinates: [22.5445697, 114.0545346]
+    popup contents: Shenzhen, China
+  - coordinates: [50.0874654, 14.4212535]
+    popup contents: Prague, Czech Republic
+  - coordinates: [55.8832986, 12.5000112]
+    popup contents: Horsholm, Denmark
+  - coordinates: [60.2241869, 24.6603626]
+    popup contents: Espoo, Finland
+  - coordinates: [45.7578137, 4.8320114]
+    popup contents: Lyon, France
+  - coordinates: [48.8566101, 2.3514992]
+    popup contents: Paris, France
+  - coordinates: [51.2254018, 6.7763137]
+    popup contents: Dusseldorf, Germany
+  - coordinates: [48.1371079, 11.5753822]
+    popup contents: Munich, Germany
+  - coordinates: [49.453872, 11.077298]
+    popup contents: Nuremberg, Germany
+  - coordinates: [22.2793278, 114.1628131]
+    popup contents: Hong Kong, China
+  - coordinates: [47.4983815, 19.0404707]
+    popup contents: Budapest, Hungary
+  - coordinates: [53.3497645, -6.2602732]
+    popup contents: Dublin, Ireland
+  - coordinates: [32.0193121, 34.7804076]
+    popup contents: Holon, Israel
+  - coordinates: [12.9791198, 77.5912997]
+    popup contents: Bengaluru, India
+  - coordinates: [18.9387711, 72.8353355]
+    popup contents: Mumbai, India
+  - coordinates: [28.6141793, 77.2022662]
+    popup contents: New Delhi, India
+  - coordinates: [-2.49599765, 120.200165645358]
+    popup contents: Indonesia
+  - coordinates: [45.4667971, 9.1904984]
+    popup contents: Milan, Italy
+  - coordinates: [41.894802, 12.4853384]
+    popup contents: Rome, Italy
+  - coordinates: [35.6828387, 139.7594549]
+    popup contents: Tokyo, Japan
+  - coordinates: [37.5666791, 126.9782914]
+    popup contents: Seoul, South Korea
+  - coordinates: [54.6870458, 25.2829111]
+    popup contents: Vilnius, Lithuania
+  - coordinates: [49.6115349, 6.0495308]
+    popup contents: Bertrange, Luxembourg
+  - coordinates: [2.3923759, 112.8471939]
+    popup contents: Malaysia
+  - coordinates: [52.1343369, 4.6561357]
+    popup contents: Alphen aan den Rijn, Netherlands
+  - coordinates: [-36.852095, 174.7631803]
+    popup contents: Auckland, New Zealand
+  - coordinates: [59.9133301, 10.7389701]
+    popup contents: Oslo, Norway
+  - coordinates: [12.7503486, 122.7312101]
+    popup contents: Philippines
+  - coordinates: [52.2319237, 21.0067265]
+    popup contents: Warsaw, Poland
+  - coordinates: [38.7077507, -9.1365919]
+    popup contents: Lisbon, Portugal
+  - coordinates: [55.7504461, 37.6174943]
+    popup contents: Moscow, Russia
+  - coordinates: [1.2904753, 103.8520359]
+    popup contents: Singapore, Singapore
+  - coordinates: [-33.928992, 18.417396]
+    popup contents: Cape Town, South Africa
+  - coordinates: [-26.205, 28.049722]
+    popup contents: Johannesburg, South Africa
+  - coordinates: [40.4167047, -3.7035825]
+    popup contents: Madrid, Spain
+  - coordinates: [59.3251172, 18.0710935]
+    popup contents: Stockholm, Sweden
+  - coordinates: [46.2017559, 6.1466014]
+    popup contents: Geneva, Switzerland
+  - coordinates: [47.3723941, 8.5423328]
+    popup contents: Zurich, Switzerland
+  - coordinates: [41.0096334, 28.9651646]
+    popup contents: Istanbul, Turkey
+  - coordinates: [14.8971921, 100.83273]
+    popup contents: Thailand
+  - coordinates: [25.0375198, 121.5636796]
+    popup contents: Taipei, Taiwan
+  - coordinates: [50.4500336, 30.5241361]
+    popup contents: Kiev, Ukraine
+  - coordinates: [25.06572, 55.17126]
+    popup contents: Dubai, United Arab Emirates
+  - coordinates: [51.4143513, -0.7449925]
+    popup contents: Bracknell, United Kingdom
+  - coordinates: [51.4538022, -2.5972985]
+    popup contents: Bristol, United Kingdom
+  - coordinates: [30.2711286, -97.7436995]
+    popup contents: Austin, United States of America
+  - coordinates: [48.7544012, -122.4788361]
+    popup contents: Bellingham, United States of America
+  - coordinates: [42.5316918, -83.7846458]
+    popup contents: Brighton, United States of America
+  - coordinates: [42.5048167, -71.1956111]
+    popup contents: Burlington, United States of America
+  - coordinates: [42.3750997, -71.1056157]
+    popup contents: Cambridge, United States of America
+  - coordinates: [39.2014405, -85.9213796]
+    popup contents: Columbus, United States of America
+  - coordinates: [33.6633386, -117.903317]
+    popup contents: Costa Mesa, United States of America
+  - coordinates: [45.5228939, -122.989827]
+    popup contents: Hillsboro, United States of America
+  - coordinates: [29.7589382, -95.3676974]
+    popup contents: Houston, United States of America
+  - coordinates: [39.2689562, -84.2638406]
+    popup contents: Loveland, United States of America
+  - coordinates: [40.7127281, -74.0060152]
+    popup contents: New York City, United States of America
+  - coordinates: [33.0136764, -96.6925096]
+    popup contents: Plano, United States of America
+  - coordinates: [40.2338438, -111.6585337]
+    popup contents: Provo, United States of America
+  - coordinates: [39.0840054, -77.1527573]
+    popup contents: Rockville, United States of America
+  - coordinates: [38.7521235, -121.2880059]
+    popup contents: Roseville, United States of America
+  - coordinates: [37.3541132, -121.9551744]
+    popup contents: Santa Clara, United States of America
+  - coordinates: [47.6038321, -122.3300624]
+    popup contents: Seattle, United States of America
+  - coordinates: [41.5231076, -81.5184553]
+    popup contents: South Euclid, United States of America
+  - coordinates: [37.3688301, -122.0363496]
+    popup contents: Sunnyvale, United States of America
+  - coordinates: [42.6055893, -83.1499304]
+    popup contents: Troy, United States of America
+  - coordinates: [38.9013729, -77.2651762]
+    popup contents: Vienna, United States of America

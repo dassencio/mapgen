@@ -1,0 +1,356 @@
+#!/usr/bin/env python3
+
+
+import argparse
+import base64
+import logging
+import mimetypes
+import os
+import sys
+
+import csscompressor
+import htmlmin
+import jsmin
+import pykwalify.core
+import ruamel.yaml as yaml
+
+
+def error(message):
+    """Displays an error message and aborts the program.
+
+    Parameters
+    ----------
+    message : str
+        Message describing the error.
+    """
+    sys.exit("\n---- ERROR ----\n\n{}\n".format(message))
+
+
+def marker_error(marker, message):
+    """Aborts the program due to errors on a marker's data.
+
+    Parameters
+    ----------
+    message : str
+        Message describing the error.
+    """
+    error(
+        "Marker at coordinates ({}, {}):\n\n - {}".format(
+            *marker["coordinates"], message
+        )
+    )
+
+
+def path_from_script(relative_path):
+    """Converts a relative path from the script's location into an
+    absolute path.
+
+    Parameters
+    ----------
+    relative_path : str
+        Relative path.
+
+    Returns
+    -------
+    absolute_path : str
+        Absolute path built by concatening the script's location and
+        the input relative path.
+    """
+    return os.path.join(os.path.dirname(__file__), relative_path)
+
+
+def build_marker_icon(marker, default_marker_settings, icon_type):
+    """Builds the icon for a marker.
+
+    Parameters
+    ----------
+    marker : dict
+        Marker's data.
+    default_marker_settings : dict
+        Used-defined default values for a marker's attributes.
+    icon_type : {"normal", "selected"}
+        Type of icon to generate.
+
+    Returns
+    -------
+    data_uri : str
+        Icon represented as a data URI.
+
+    Notes
+    -----
+    The value specified for an icon can represent either a path to an
+    icon file or the name of a built-in icon (e.g. "house"), with the
+    latter only applying if the icon value does not represent the path
+    to an actual file.
+    """
+    assert icon_type in ("normal", "selected")
+
+    # Icon value determined from the YAML data provided by the user.
+    icon = (
+        marker.get("{} icon".format(icon_type))
+        or marker.get("icon")
+        or default_marker_settings.get("{} icon".format(icon_type))
+        or default_marker_settings.get("icon")
+        or "placeholder"
+    )
+
+    # Icon color (only applicable to built-in icons).
+    icon_color = (
+        marker.get("{} icon color".format(icon_type))
+        or marker.get("icon color")
+        or default_marker_settings.get("{} icon color".format(icon_type))
+        or default_marker_settings.get("icon color")
+        or {"normal": "#1081e0", "selected": "#d30800"}[icon_type]
+    )
+
+    # `icon` can be either the path to a file or the name of a built-in icon.
+    possible_icon_paths = [
+        icon,
+        path_from_script("template/icons/{}.svg".format(icon)),
+    ]
+
+    for path in possible_icon_paths:
+        if not os.path.isfile(path):
+            continue
+        mime_type, encoding = mimetypes.guess_type(path)
+        if mime_type == "image/svg+xml":
+            with open(path, "r") as svg_file:
+                icon_bytes = str.encode(
+                    "".join(svg_file.read().splitlines()).replace(
+                        "__MAPGEN__ICON_FILL_COLOR__", icon_color
+                    )
+                )
+        elif mime_type and mime_type.startswith("image"):
+            with open(path, "rb") as icon_file:
+                icon_bytes = icon_file.read()
+        else:
+            break
+        icon_base64 = base64.b64encode(icon_bytes)
+        return "data:{};base64,{}".format(mime_type, str(icon_base64, "utf-8"))
+
+    marker_error(marker, "Icon '{}' is not valid.".format(icon))
+
+
+def parse_yaml(yaml_str):
+    """Parses and validates YAML data describing a map.
+
+    Parses the input YAML data and validates it against the map data
+    schema (see file `schema.yaml`). If the data fails to validate, the
+    detected errors are displayed and the program is aborted.
+
+    Parameters
+    ----------
+    yaml_str : str
+        YAML data describing a map.
+
+    Returns
+    -------
+    yaml_data : dict
+        Parsed YAML data.
+    """
+    try:
+        yaml_data = yaml.safe_load(yaml_str)
+        with open(path_from_script("schema.yaml")) as yaml_schema:
+            logging.getLogger("pykwalify.core").disabled = True
+            validator = pykwalify.core.Core(
+                source_data=yaml_data,
+                schema_data=yaml.safe_load(yaml_schema.read()),
+            )
+            validator.validate(raise_exception=True)
+            logging.getLogger("pykwalify.core").disabled = False
+            return yaml_data
+    except pykwalify.errors.SchemaError as exception:
+        error(
+            "YAML data contains the following error(s):\n\n{}".format(
+                exception.msg
+            )
+        )
+
+
+def validate_markers(markers):
+    """Validates all marker coordinates.
+
+    Parameters
+    ----------
+    markers : list of markers
+        List containing the data for all markers.
+    """
+    all_coordinates = [marker["coordinates"] for marker in markers]
+    for marker in markers:
+        coordinates = marker["coordinates"]
+        if all_coordinates.count(coordinates) > 1:
+            marker_error(marker, "Marker's coordinates are not unique.")
+        latitude, longitude = coordinates
+        if not -90.0 <= latitude <= 90.0:
+            marker_error(marker, "Latitude value is not within [-90, 90].")
+        if not -180.0 <= longitude <= 180.0:
+            marker_error(marker, "Longitude value is not within [-180, 180].")
+
+
+def js_map_settings(map_settings):
+    """Builds map settings needed for the JavaScript code template .
+
+    Attributes
+    ----------
+    map_settings : dict
+        User-defined map settings.
+
+    Returns
+    -------
+    map_settings_js : dict
+        Adjusted map settings which can be inserted directly into the
+        JavaScript code template.
+    """
+    return {
+        **map_settings,
+        **{
+            "language": "en",
+            "show zoom control": map_settings.get("show zoom control", "no"),
+            "title": map_settings.get("title", "Untitled"),
+            "zoom control position": map_settings.get(
+                "zoom control position", "top right"
+            ).replace(" ", ""),
+        },
+    }
+
+
+def js_markers(markers, default_marker_settings):
+    """Builds marker data needed for the JavaScript code template.
+
+    markers : list of markers
+        List containing the data for all markers.
+    default_marker_settings : dict
+        Used-defined default values for a marker's attributes.
+
+    Returns
+    -------
+    markers_js : list of markers
+        Adjusted marker data which can be inserted directly into the
+        JavaScript code template.
+    """
+    return [
+        {
+            "coordinates": marker["coordinates"],
+            "normal icon dimensions": (
+                marker.get("normal icon dimensions")
+                or marker.get("icon dimensions")
+                or default_marker_settings.get("normal icon dimensions")
+                or default_marker_settings.get("icon dimensions")
+                or [40, 40]
+            ),
+            "normal icon index": marker["__normal icon index__"],
+            "popup contents": marker.get("popup contents", ""),
+            "selected icon dimensions": (
+                marker.get("selected icon dimensions")
+                or marker.get("icon dimensions")
+                or default_marker_settings.get("selected icon dimensions")
+                or default_marker_settings.get("icon dimensions")
+                or [40, 40]
+            ),
+            "selected icon index": marker["__selected icon index__"],
+        }
+        for marker in markers
+    ]
+
+
+def generate_html(yaml_str):
+    """Generates an HTML page containing a user-defined map.
+
+    Parameters
+    ----------
+    yaml_str : str
+        YAML data describing a map.
+
+    Returns
+    -------
+    html : str
+        HTML string representing a stand-alone page, i.e., a page which
+        can be opened directly in a browser.
+    """
+    yaml_data = parse_yaml(yaml_str)
+    map_settings = yaml_data.get("map settings", {})
+    default_marker_settings = yaml_data.get("default marker settings", {})
+    markers = yaml_data.get("markers", {})
+    validate_markers(markers)
+
+    # Load the HTML file template.
+    with open(path_from_script("template/index.html")) as index_html:
+        html = index_html.read()
+
+    # Build the icons for all markers and store each unique icon (no duplicates)
+    # on `marker_icons`. For each marker, store a reference to its associated
+    # icon from `marker_icons`. These references are used on the generated
+    # JavaScript code to prevent multiple copies of the same icon from being
+    # written to the generated page (thereby significantly reducing its size).
+    marker_icons = []
+    for marker in markers:
+        for icon_type in ("normal", "selected"):
+            marker_icon = build_marker_icon(
+                marker, default_marker_settings, icon_type
+            )
+            if marker_icon not in marker_icons:
+                icon_index = len(marker_icons)
+                marker_icons.append(marker_icon)
+            else:
+                icon_index = marker_icons.index(marker_icon)
+            marker["__{} icon index__".format(icon_type)] = icon_index
+
+    # Set up, then insert the contents of mapgen.js into the HTML template.
+    with open(path_from_script("template/mapgen.js")) as mapgen_js:
+        html = html.replace(
+            "__MAPGEN__MAPGEN_JS__",
+            jsmin.jsmin(
+                mapgen_js.read()
+                .replace(
+                    "__MAPGEN__MAP_SETTINGS__",
+                    str(js_map_settings(map_settings)),
+                )
+                .replace("__MAPGEN__MARKER_ICONS__", str(marker_icons))
+                .replace(
+                    "__MAPGEN__MARKERS__",
+                    str(js_markers(markers, default_marker_settings)),
+                )
+            ),
+        )
+
+    # Insert the (pre-minified) contents of leaflet.css into the HTML template.
+    with open(path_from_script("template/leaflet.css")) as leaflet_css:
+        html = html.replace("__MAPGEN__LEAFLET_CSS__", leaflet_css.read())
+
+    # Insert the (pre-minified) contents of leaflet.js into the HTML template.
+    with open(path_from_script("template/leaflet.js")) as leaflet_js:
+        html = html.replace("__MAPGEN__LEAFLET_JS__", leaflet_js.read())
+
+    # Minify, then insert the contents of mapgen.css into the HTML template.
+    with open(path_from_script("template/mapgen.css")) as mapgen_css:
+        html = html.replace(
+            "__MAPGEN__MAPGEN_CSS__", csscompressor.compress(mapgen_css.read())
+        )
+
+    # Sanity check: all placeholders should have been replaced at this point.
+    assert "__MAPGEN__" not in html
+
+    return htmlmin.minify(html)
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "-i",
+        "--input-file",
+        type=argparse.FileType("r"),
+        default=sys.stdin,
+        help="input file (default: stdin)",
+    )
+    parser.add_argument(
+        "-o",
+        "--output-file",
+        type=argparse.FileType("w"),
+        default=sys.stdout,
+        help="output file (default: stdout)",
+    )
+    namespace = parser.parse_args()
+
+    # If the input YAML file is empty, default to an empty marker list.
+    yaml_input = namespace.input_file.read() or "markers: []"
+    namespace.output_file.write(generate_html(yaml_input))

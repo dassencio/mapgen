@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+red=$(echo -e "\e[1;31m")
+green=$(echo -e "\e[1;32m")
+normal=$(echo -e "\e[m")
+
+show_test_result() {
+  local test_status=$1
+  local test_name=$2
+  test $test_status -ne 0 && {
+      echo "[${red}FAILED${normal}] $test_name."
+      exit 1
+  }
+  echo "[${green}PASSED${normal}] $test_name."
+}
+
+# YAML input validation tests that must succeed.
+for yaml_file in tests/validation/succeed/*
+do
+  ./mapgen -i $yaml_file > /dev/null
+  show_test_result $? "Accept valid YAML input file '$(basename $yaml_file)'"
+done
+
+# YAML input validation tests that must fail.
+for yaml_file in tests/validation/fail/*
+do
+  ! ./mapgen -i $yaml_file &> /dev/null
+  show_test_result $? "Reject invalid YAML input file '$(basename $yaml_file)'"
+done
+
+# HTML generation tests that compare against pre-regenerated HTML output.
+for test_dir in tests/html/*
+do
+  cd $test_dir
+  diff <(../../mapgen -i input.yaml) output.html
+  test_name=$(cat input.yaml | grep title | cut -d ' ' -f 4-)
+  show_test_result $? "Verify HTML output for test '$test_name'"
+  cd - &>/dev/null
+done
