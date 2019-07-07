@@ -2,14 +2,12 @@
 
 # Description
 
-`mapgen` is a tool (written in Python 3) which generates maps with
-customizable markers. It takes a YAML file describing the map settings as well
-as the marker locations and styles as input and generates an HTML
-page as output. This page contains all the necessary JavaScript
-and CSS code it needs inlined into it, so it can be directly opened in a browser
-without the need for a web server such as Apache or similar. This also means it
-can be easily shared with others (e.g. via e-mail) or added to an existing
-webpage through an `<iframe>` element.
+`mapgen` is a tool (written in Python 3) which generates interactive maps with
+customizable markers. It takes a YAML file containing map settings and marker
+data as input and generates an HTML page as output. This page contains all
+JavaScript and CSS code it needs inlined into it, so it can be directly opened
+in a web browser (without the need for a web server), shared with others (e.g.
+via e-mail), or added to an existing webpage through an `<iframe>` element.
 
 Below is an example of what a typical input YAML file looks like:
 
@@ -30,8 +28,8 @@ markers:
 ```
 
 The resulting page can be seen [here](https://htmlpreview.github.io/?https://github.com/dassencio/mapgen/blob/master/examples/largest-eu-capitals/output.html).
-By clicking on a marker, a popup will be displayed showing the city's name as
-well as its estimated population.
+Clicking on a marker will open a popup showing its associated city name and
+estimated population.
 
 Here are some more interesting examples:
 
@@ -44,11 +42,11 @@ Here are some more interesting examples:
 # License
 
 Except for files from the [Leaflet](https://leafletjs.com/) library and icons
-from [Flaticon](https://www.flaticon.com/), all code from this project is
+from [Flaticon](https://www.flaticon.com/), all files from this project are
 licensed under the GPLv3. See the [`LICENSE`](https://github.com/dassencio/mapgen/tree/master/LICENSE)
 file for more information.
 
-Files from the Leaflet library are covered under the
+Files from the Leaflet library are licensed under the
 [2-clause BSD license](https://github.com/Leaflet/Leaflet/blob/master/LICENSE).
 
 Icons from Flaticon were produced by Google, Freepik and Smashicons. Those are
@@ -56,7 +54,7 @@ all licensed under the [CC BY 3.0 license](https://creativecommons.org/licenses/
 
 # Required modules
 
-All Python modules needed by `mapgen` are listed on the
+All Python modules needed by `mapgen` are listed in the
 [`requirements.txt`](https://github.com/dassencio/mapgen/tree/master/requirements.txt)
 file. You can install them with the following command:
 
@@ -64,9 +62,9 @@ file. You can install them with the following command:
 
 # Usage instructions
 
-For an input file `input.yaml` specifying the map settings and the marker data,
-running the following command will generate the desired HTML page and store it
-on `output.html`:
+For an input file `input.yaml` containing map settings and marker data,
+running the following command will generate the desired HTML
+page and store it on `output.html`:
 
     ./mapgen -i input.yaml -o output.html
 
@@ -87,7 +85,7 @@ unselected (normal) markers. Only one marker can be selected at a time.
 the input YAML file will be resolved from the current working directory, not
 from the location of the YAML file!
 
-If `popup contents` are defined for a marker, a popup will be shown when it is
+If `popup contents` is defined for a marker, a popup will be shown when it is
 selected. Markers with no `popup contents` defined are assumed to be
 non-selectable and are therefore always displayed with their normal icons.
 
@@ -132,9 +130,10 @@ The input YAML file is divided into three main sections:
   in `normal icon color`. Defaults to `#1081e0` (blue).
 
 - `normal icon dimensions`: Accepts the same values as `icon dimensions`, but
-  only affects the icons shown for markers when they are not selected. Has higher precedence than `icon dimensions`, i.e., if both `icon dimensions` and
-  `normal icon dimensions` are specified, the default dimensions for normal icons
-  will be set to the one specified in `normal icon dimensions`.
+  only affects the icons shown for markers when they are not selected. Has
+  higher precedence than `icon dimensions`, i.e., if both `icon dimensions` and
+  `normal icon dimensions` are specified, the default dimensions for normal
+  icons will be set to those specified in `normal icon dimensions`.
 
 - `selected icon`: Equivalent of `normal icon` for selected icons.
 
@@ -147,32 +146,34 @@ The input YAML file is divided into three main sections:
 ### Attributes in `map settings`:
 
 - `language`: Language used to display labels on the map (e.g. country, city
-  and street names). Valid values are either `local` to display labels using
-  each country's official language or short language codes such as `en`
-  for English and `de` for German. Valid language codes are listed in
+  and street names). Valid values are `local` (to have labels in each country
+  be displayed in the country's official language) and short language
+  codes such as `en` and `de` (to have all labels be displayed in a specific
+  language). Valid language codes are listed in
   [this article](https://meta.wikimedia.org/wiki/List_of_Wikipedias#All_Wikipedias_ordered_by_number_of_articles),
   but not all labels are guaranteed to exist in every available language.
+  Defaults to `en` (English).
 
 - `show zoom control`: Whether zoom controls (`+`/`-` buttons) should be
   displayed or not. Valid values are `no` and `yes`. Defaults to `no`.
 
 - `title`: Title to be displayed when the generated HTML page is opened in a
-  browser.
+  web browser.
 
-- `zoom control position`: Location on the map where zoom controls must appear,
-  if applicable. Valid values are `bottom left`, `bottom right`, `top left`
-  and `top right`. Defaults to `top right`.
+- `zoom control position`: Location on the map where zoom controls must be
+  displayed, if applicable. Valid values are `bottom left`, `bottom right`,
+  `top left` and `top right`. Defaults to `top right`.
 
 ### Marker entries in `markers`:
 
 All markers must be entered as a list under the `markers` section of the YAML
 file. Every marker accepts the same attributes as the ones from
 `default marker settings`, but those will only be applied to the marker being
-defined, i.e., values for attributes defined on a marker have higher precedence
-than those for attributes with same names specified under
+defined, i.e., values for attributes specified on a marker have higher
+precedence than those for attributes with the same names specified under
 `default marker settings`.
 
-Additional attributes:
+Additional attributes for markers:
 
 - `coordinates`: Marker position on the map expressed as an array of form
   `[latitude, longitude]`. Latitude and longitude values must fall within the
