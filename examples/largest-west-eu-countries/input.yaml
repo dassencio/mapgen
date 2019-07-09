@@ -3,7 +3,6 @@ default marker settings:
   selected icon dimensions: [90, 90]
 map settings:
   external css files: ["style.css"]
-  show zoom control: yes
   title: Largest countries in Western Europe
 markers:
   - coordinates: [47.2000338, 13.199959]

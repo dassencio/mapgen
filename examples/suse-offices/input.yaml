@@ -4,7 +4,6 @@ default marker settings:
   selected icon: suse-logo-selected.svg
   selected icon dimensions: [90, 45]
 map settings:
-  show zoom control: yes
   title: Locations of SUSE offices (June 2019)
 markers:
   - coordinates: [-34.6075616, -58.437076]

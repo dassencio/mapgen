@@ -205,7 +205,7 @@ def js_map_settings(map_settings):
         **map_settings,
         **{
             "language": "en",
-            "show zoom control": map_settings.get("show zoom control", "no"),
+            "show zoom control": map_settings.get("show zoom control", "yes"),
             "title": map_settings.get("title", "Untitled"),
             "zoom control position": map_settings.get(
                 "zoom control position", "top right"

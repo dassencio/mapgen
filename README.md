@@ -161,7 +161,7 @@ The input YAML file is divided into three main sections:
   Defaults to `en` (English).
 
 - `show zoom control`: Whether zoom controls (`+`/`-` buttons) should be
-  displayed or not. Valid values are `no` and `yes`. Defaults to `no`.
+  displayed or not. Valid values are `no` and `yes`. Defaults to `yes`.
 
 - `title`: Title to be displayed when the generated HTML page is opened in a
   web browser.
