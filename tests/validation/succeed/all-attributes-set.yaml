@@ -9,6 +9,8 @@ default marker settings:
   selected icon color: green
   selected icon dimensions: [40, 40]
 map settings:
+  external css files: []
+  external javascript files: []
   language: local
   show zoom control: yes
   title: Test with all attributes set

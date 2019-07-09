@@ -327,6 +327,28 @@ def generate_html(yaml_str):
             "__MAPGEN__MAPGEN_CSS__", csscompressor.compress(mapgen_css.read())
         )
 
+    # Minify, then insert all external CSS files into the HTML template.
+    external_css = ""
+    for css_filename in map_settings.get("external css files", []):
+        try:
+            with open(css_filename) as css_file:
+                external_css += css_file.read() + "\n"
+        except OSError:
+            error("CSS file '{}' is not valid.".format(css_filename))
+    html = html.replace(
+        "__MAPGEN__EXTERNAL_CSS__", csscompressor.compress(external_css)
+    )
+
+    # Minify, then insert all external JavaScript files into the HTML template.
+    external_js = ""
+    for js_filename in map_settings.get("external javascript files", []):
+        try:
+            with open(js_filename) as js_file:
+                external_js += js_file.read() + "\n"
+        except OSError:
+            error("JavaScript file '{}' is not valid.".format(js_filename))
+    html = html.replace("__MAPGEN__EXTERNAL_JS__", jsmin.jsmin(external_js))
+
     # Sanity check: all placeholders should have been replaced at this point.
     assert "__MAPGEN__" not in html
 

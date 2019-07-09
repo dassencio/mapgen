@@ -145,6 +145,12 @@ The input YAML file is divided into three main sections:
 
 ### Attributes in `map settings`:
 
+- `external css files`: List of CSS files to be inlined into the generated HTML
+  page. CSS styles defined in these files will override the default CSS styles
+  from `mapgen` (see [`template/mapgen.css`](https://github.com/dassencio/mapgen/tree/master/template/mapgen.css)).
+- `external javascript files`: List of JavaScript files to be inlined into the
+  generated HTML page. The map can be manipulated through the `map` property of
+  the global `mapgen` object (see [`template/mapgen.js`](https://github.com/dassencio/mapgen/tree/master/template/mapgen.js)).
 - `language`: Language used to display labels on the map (e.g. country, city
   and street names). Valid values are `local` (to have labels in each country
   be displayed in the country's official language) and short language

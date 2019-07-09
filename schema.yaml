@@ -46,6 +46,14 @@ mapping:
   map settings:
     type: map
     mapping:
+      external css files:
+        type: seq
+        sequence:
+          - type: text
+      external javascript files:
+        type: seq
+        sequence:
+          - type: text
       language:
         type: str
       show zoom control:

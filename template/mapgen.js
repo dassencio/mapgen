@@ -1,116 +1,173 @@
-// User-defined map settings.
-const mapSettings = __MAPGEN__MAP_SETTINGS__;
+const mapgen = {
+  // User-defined map settings.
+  mapSettings: __MAPGEN__MAP_SETTINGS__,
 
-// List of unique marker icons represented as data URIs.
-const markerIcons = __MAPGEN__MARKER_ICONS__;
+  // List of unique marker icons represented as data URIs.
+  markerIcons: __MAPGEN__MARKER_ICONS__,
 
-// List containing the data for all markers.
-const markers = __MAPGEN__MARKERS__;
+  // List containing the data for all markers.
+  markers: __MAPGEN__MARKERS__,
 
-document.title = mapSettings["title"];
+  // Attribution shown on the bottom-right corner of the map.
+  mapAttribution:
+    "&copy; <a href='https://wikimediafoundation.org/wiki/Maps_Terms_of_Use'>" +
+    "Wikimedia</a> © <a href='https://www.openstreetmap.org/copyright'>" +
+    "OpenStreetMap</a>",
 
-// Map tile provider.
-const mapProvider =
-  "https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png?lang=" +
-  mapSettings["language"];
+  // Map tile provider.
+  mapTileProvider: "https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png",
 
-// Attribution shown on the bottom-right corner of the map.
-const mapAttribution =
-  "&copy; <a href='https://wikimediafoundation.org/wiki/Maps_Terms_of_Use'>" +
-  "Wikimedia</a> © <a href='https://www.openstreetmap.org/copyright'>" +
-  "OpenStreetMap</a>";
+  // Reference to Leaflet map instance.
+  map: null,
 
-const map = L.map("map", {
-  center: markers.length > 0 ? undefined : [18, 0],
-  layers: [
-    L.tileLayer(mapProvider, {
-      attribution: mapAttribution,
-      minZoom: 2,
-      maxZoom: 19
-    })
-  ],
-  maxBounds: [[-120, -225], [120, 225]],
-  maxBoundsViscosity: 1.0,
-  zoom: markers.length > 0 ? undefined : 3,
-  zoomControl: false
-});
+  // List of markers drawn on the map.
+  mapMarkers: [],
 
-if (mapSettings["show zoom control"] === "yes") {
-  L.control.zoom({ position: mapSettings["zoom control position"] }).addTo(map);
-}
+  // Marker on the map which is currently selected.
+  selectedMapMarker: null,
 
-/**
- * Sets the widths of marker popups based on the viewport dimensions.
- *
- * @param markers List of markers whose popups should be processed.
- */
-function setMarkerPopupWidths(markers) {
-  for (let marker of markers) {
-    const popup = marker.getPopup();
-    if (popup) {
-      popup.options.maxWidth = Math.min(
-        document.documentElement.clientWidth - 16,
-        640
+  /**
+   * Deselects the currently selected marker on the map.
+   */
+  deselectSelectedMapMarker: function() {
+    if (this.selectedMapMarker) {
+      this.selectedMapMarker.setIcon(
+        this.selectedMapMarker.mapgenIcons.iconNormal
       );
-      popup.update();
+      this.selectedMapMarker = null;
     }
-  }
-}
+  },
 
-window.addEventListener("resize", () => setMarkerPopupWidths(allDrawnMarkers));
+  /**
+   * Callback function invoked when the user clicks on the map.
+   */
+  onMapClick: function() {
+    this.deselectSelectedMapMarker();
+  },
 
-// Callback function which deselects the currently selected marker.
-let deselectSelectedMarker = () => null;
-let allDrawnMarkers = [];
-for (let marker of markers) {
-  const [normalIconWidth, normalIconHeight] = marker["normal icon dimensions"];
-  const [selectedIconWidth, selectedIconHeight] = marker[
-    "selected icon dimensions"
-  ];
-  const iconNormal = L.icon({
-    iconUrl: markerIcons[marker["normal icon index"]],
-    iconSize: [normalIconWidth, normalIconHeight],
-    iconAnchor: [normalIconWidth / 2, normalIconHeight],
-    popupAnchor: [0, -(selectedIconHeight + 2)]
-  });
-  const iconSelected = L.icon({
-    iconUrl: markerIcons[marker["selected icon index"]],
-    iconSize: [selectedIconWidth, selectedIconHeight],
-    iconAnchor: [selectedIconWidth / 2, selectedIconHeight],
-    popupAnchor: [0, -(selectedIconHeight + 2)]
-  });
-
-  const drawnMarker = L.marker(marker.coordinates, {
-    icon: iconNormal
-  });
-  if (marker["popup contents"]) {
-    drawnMarker.bindPopup(marker["popup contents"], { autoPan: true });
-  }
-  drawnMarker.addTo(map);
-  allDrawnMarkers.push(drawnMarker);
-
-  drawnMarker.on("click", function(event) {
-    deselectSelectedMarker();
-    deselectSelectedMarker = () => drawnMarker.setIcon(iconNormal);
-    /*
-     * The marker's popup is opened/closed before the "click" callback function
-     * is invoked. By checking if its popup is currently open, we can determine
-     * if the user clicked on a marker which was not already selected (otherwise
-     * the popup would be closed at this point).
-     */
-    if (drawnMarker.getPopup() && drawnMarker.getPopup().isOpen()) {
-      event.target.setIcon(iconSelected);
+  /**
+   * Callback function invoked when the user clicks on a marker on the map.
+   *
+   * @param event Click event data.
+   */
+  onMapMarkerClick: function(event) {
+    const mapMarker = event.target;
+    const mapMarkerAlreadySelected = mapMarker === this.selectedMapMarker;
+    this.deselectSelectedMapMarker();
+    if (!mapMarkerAlreadySelected) {
+      mapMarker.setIcon(mapMarker.mapgenIcons.iconSelected);
+      this.selectedMapMarker = mapMarker;
     }
     L.DomEvent.stopPropagation(event);
-  });
-}
+  },
 
-setMarkerPopupWidths(allDrawnMarkers);
+  /**
+   * Callback function invoked when the web browser window is resized.
+   */
+  onResize: function() {
+    this.redrawMarkerPopups();
+  },
 
-if (allDrawnMarkers.length > 0) {
-  map.fitBounds(new L.featureGroup(allDrawnMarkers).getBounds());
-}
-map.on("click", function(event) {
-  deselectSelectedMarker();
-  deselectSelectedMarker = () => null;
-});
+  /**
+   * Redraws all marker popups based on the current viewport dimensions.
+   */
+  redrawMarkerPopups: function() {
+    for (let mapMarker of this.mapMarkers) {
+      const popup = mapMarker.getPopup();
+      if (popup) {
+        popup.options.maxWidth = Math.min(
+          document.documentElement.clientWidth - 16,
+          640
+        );
+        popup.update();
+      }
+    }
+  },
+
+  /**
+   * Draws the map (and all markers).
+   */
+  drawMap: function() {
+    if (this.map) {
+      this.map.remove();
+      this.map = null;
+    }
+    this.mapMarkers = [];
+    this.selectedMapMarker = null;
+
+    document.title = this.mapSettings["title"];
+
+    this.map = L.map("map", {
+      center: this.markers.length > 0 ? undefined : [18, 0],
+      layers: [
+        L.tileLayer(
+          this.mapTileProvider + "?lang=" + this.mapSettings["language"],
+          {
+            attribution: this.mapAttribution,
+            minZoom: 2,
+            maxZoom: 19
+          }
+        )
+      ],
+      maxBounds: [[-120, -225], [120, 225]],
+      maxBoundsViscosity: 1.0,
+      zoom: this.markers.length > 0 ? undefined : 3,
+      zoomControl: false
+    });
+
+    if (this.mapSettings["show zoom control"] === "yes") {
+      L.control
+        .zoom({ position: this.mapSettings["zoom control position"] })
+        .addTo(this.map);
+    }
+
+    window.addEventListener("resize", this.onResize.bind(this));
+
+    for (let marker of this.markers) {
+      const [normalIconWidth, normalIconHeight] = marker[
+        "normal icon dimensions"
+      ];
+      const [selectedIconWidth, selectedIconHeight] = marker[
+        "selected icon dimensions"
+      ];
+      const iconNormal = L.icon({
+        iconUrl: this.markerIcons[marker["normal icon index"]],
+        iconSize: [normalIconWidth, normalIconHeight],
+        iconAnchor: [normalIconWidth / 2, normalIconHeight],
+        popupAnchor: [0, -(selectedIconHeight + 2)]
+      });
+      const iconSelected = L.icon({
+        iconUrl: this.markerIcons[marker["selected icon index"]],
+        iconSize: [selectedIconWidth, selectedIconHeight],
+        iconAnchor: [selectedIconWidth / 2, selectedIconHeight],
+        popupAnchor: [0, -(selectedIconHeight + 2)]
+      });
+
+      const mapMarker = L.marker(marker.coordinates, {
+        icon: iconNormal
+      });
+      mapMarker.mapgenIcons = {
+        iconNormal: iconNormal,
+        iconSelected: iconSelected
+      };
+
+      if (marker["popup contents"]) {
+        mapMarker.bindPopup(marker["popup contents"], { autoPan: true });
+      }
+
+      mapMarker.addTo(this.map);
+      this.mapMarkers.push(mapMarker);
+
+      mapMarker.on("click", this.onMapMarkerClick.bind(this));
+    }
+
+    this.redrawMarkerPopups();
+
+    if (this.mapMarkers.length > 0) {
+      this.map.fitBounds(new L.featureGroup(this.mapMarkers).getBounds());
+    }
+    this.map.on("click", this.onMapClick.bind(this));
+  }
+};
+
+mapgen.drawMap();
