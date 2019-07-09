@@ -150,11 +150,11 @@ def parse_yaml(yaml_str):
     """
     try:
         yaml_data = yaml.safe_load(yaml_str)
-        with open(path_from_script("schema.yaml")) as yaml_schema:
+        with open(path_from_script("schema.yaml")) as schema_yaml:
             logging.getLogger("pykwalify.core").disabled = True
             validator = pykwalify.core.Core(
                 source_data=yaml_data,
-                schema_data=yaml.safe_load(yaml_schema.read()),
+                schema_data=yaml.safe_load(schema_yaml.read()),
             )
             validator.validate(raise_exception=True)
             logging.getLogger("pykwalify.core").disabled = False
