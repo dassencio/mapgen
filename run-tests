@@ -32,8 +32,8 @@ done
 for test_dir in tests/html/*
 do
   cd $test_dir
-  diff <(../../mapgen -i input.yaml) output.html
   test_name=$(cat input.yaml | grep title | cut -d ' ' -f 4-)
+  diff <(../../mapgen -i input.yaml) output.html
   show_test_result $? "Verify HTML output for test '$test_name'"
   cd - &>/dev/null
 done
