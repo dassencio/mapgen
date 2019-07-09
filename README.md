@@ -96,8 +96,9 @@ The input YAML file is divided into three main sections:
   definition of each marker.
 
 - `map settings`: Global map settings such as the language used to display
-  labels on the map (e.g. country names) or whether zoom control buttons
-  should be displayed or not.
+  labels on the map (e.g. country names) as well as external resources to inline
+  into the generated HTML page with the intent of modifying the map's style and
+  behavior.
 
 - `markers`: List of markers to be displayed on the map. Each marker must have
   a pair of coordinates specifying its location. A marker is not required
