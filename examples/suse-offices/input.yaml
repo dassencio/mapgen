@@ -101,6 +101,10 @@ markers:
     popup contents: Madrid, Spain
   - coordinates: [59.398031, 17.948201]
     popup contents: Stockholm, Sweden
+  - coordinates: [28.523004, -16.336458]
+    popup contents: Tenerife, Spain
+  - coordinates: [28.079657, -15.451434]
+    popup contents: Gran Canaria, Spain
   - coordinates: [46.281695, 6.164922]
     popup contents: Geneva, Switzerland
   - coordinates: [47.406403, 8.403596]
