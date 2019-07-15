@@ -39,6 +39,9 @@ Here are some more interesting examples:
 - Largest countries in Western Europe: [Input YAML](https://github.com/dassencio/mapgen/tree/master/examples/largest-west-eu-countries/input.yaml) |
   [Output HTML](https://htmlpreview.github.io/?https://github.com/dassencio/mapgen/blob/master/examples/largest-west-eu-countries/output.html)
 
+- Famous monuments of Paris: [Input YAML](https://github.com/dassencio/mapgen/tree/master/examples/famous-monuments-paris/input.yaml) |
+  [Output HTML](https://htmlpreview.github.io/?https://github.com/dassencio/mapgen/blob/master/examples/famous-monuments-paris/output.html)
+
 # License
 
 Except for files from the [Leaflet](https://leafletjs.com/) library and icons
