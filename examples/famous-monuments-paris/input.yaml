@@ -7,28 +7,28 @@ markers:
   - coordinates: [48.858260, 2.294503]
     popup contents: >-
       <h2>Tour Eiffel</h2>
-      <iframe width="280" height="157" src="https://www.youtube.com/embed/F6n0JUT_pG8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <iframe width="280" height="157" src="https://www.youtube.com/embed/F6n0JUT_pG8?fs=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"></iframe>
   - coordinates: [48.873795, 2.295040]
     popup contents: >-
       <h2>Arc de Triomphe</h2>
-      <iframe width="280" height="157" src="https://www.youtube.com/embed/eKZ67PW_BiM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <iframe width="280" height="157" src="https://www.youtube.com/embed/eKZ67PW_BiM?fs=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"></iframe>
   - coordinates: [48.860632, 2.337558]
     popup contents: >-
       <h2>Palais du Louvre</h2>
-      <iframe width="280" height="157" src="https://www.youtube.com/embed/JkPcA8dngB4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <iframe width="280" height="157" src="https://www.youtube.com/embed/JkPcA8dngB4?fs=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"></iframe>
   - coordinates: [48.853047, 2.349831]
     popup contents: >-
       <h2>Notre-Dame de Paris</h2>
-      <iframe width="280" height="157" src="https://www.youtube.com/embed/XQUOl8VnudA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <iframe width="280" height="157" src="https://www.youtube.com/embed/XQUOl8VnudA?fs=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"></iframe>
   - coordinates: [48.886743, 2.343029]
     popup contents: >-
       <h2>Basilique du Sacré-Cœur</h2>
-      <iframe width="280" height="157" src="https://www.youtube.com/embed/DYRPyNIO1Eg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <iframe width="280" height="157" src="https://www.youtube.com/embed/DYRPyNIO1Eg?fs=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"></iframe>
   - coordinates: [48.846199, 2.346148]
     popup contents: >-
       <h2>Panthéon</h2>
-      <iframe width="280" height="157" src="https://www.youtube.com/embed/KaY8zqYfQI0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <iframe width="280" height="157" src="https://www.youtube.com/embed/KaY8zqYfQI0?fs=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"></iframe>
   - coordinates: [48.871989, 2.331710]
     popup contents: >-
       <h2>Palais Garnier</h2>
-      <iframe width="280" height="157" src="https://www.youtube.com/embed/thWNJCEOI50" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <iframe width="280" height="157" src="https://www.youtube.com/embed/thWNJCEOI50?fs=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"></iframe>
