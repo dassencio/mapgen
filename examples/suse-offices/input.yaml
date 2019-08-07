@@ -7,7 +7,7 @@ default marker settings:
   selected icon: suse-logo-selected.svg
   selected icon dimensions: [90, 45]
 map settings:
-  title: Locations of SUSE offices (June 2019)
+  title: Locations of SUSE offices (August 2019)
 markers:
   - coordinates: [-34.600001, -58.381042]
     popup contents: Buenos Aires, Argentina
@@ -41,7 +41,7 @@ markers:
     popup contents: Lyon, France
   - coordinates: [48.89184, 2.23251]
     popup contents: Paris, France
-  - coordinates: [51.253976, 6.799529]
+  - coordinates: [51.251393, 6.822903]
     popup contents: Dusseldorf, Germany
   - coordinates: [48.233716, 11.682455]
     popup contents: Munich, Germany
