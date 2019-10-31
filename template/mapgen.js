@@ -72,7 +72,7 @@ const mapgen = {
    * Redraws all marker popups based on the current viewport dimensions.
    */
   redrawMarkerPopups: function() {
-    for (let mapMarker of this.mapMarkers) {
+    for (const mapMarker of this.mapMarkers) {
       const popup = mapMarker.getPopup();
       if (popup) {
         popup.options.maxWidth = Math.min(
@@ -123,7 +123,7 @@ const mapgen = {
 
     window.addEventListener("resize", this.onResize.bind(this));
 
-    for (let marker of this.markers) {
+    for (const marker of this.markers) {
       const [normalIconWidth, normalIconHeight] = marker[
         "normal icon dimensions"
       ];
