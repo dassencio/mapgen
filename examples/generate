@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+for example_dir in */
+do
+  cd $example_dir
+  ../../mapgen -i input.yaml -o output.html
+  cd ..
+done
