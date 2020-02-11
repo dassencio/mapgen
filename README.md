@@ -151,6 +151,7 @@ The input YAML file is divided into three main sections:
 - `external css files`: List of CSS files to be inlined into the generated HTML
   page. CSS styles defined in these files will override the default CSS styles
   from `mapgen` (see [`template/mapgen.css`](https://github.com/dassencio/mapgen/tree/master/template/mapgen.css)).
+
 - `external javascript files`: List of JavaScript files to be inlined into the
   generated HTML page. The map can be manipulated through the `map` property of
   the global `mapgen` object (see [`template/mapgen.js`](https://github.com/dassencio/mapgen/tree/master/template/mapgen.js)).
