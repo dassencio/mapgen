@@ -54,11 +54,11 @@ mapping:
         type: seq
         sequence:
           - type: text
-      language:
-        type: str
       show zoom control:
         type: str
         enum: ["no", "yes"]
+      tile provider:
+        type: str
       title:
         type: text
       zoom control position:

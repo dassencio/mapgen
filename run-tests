@@ -29,7 +29,7 @@ do
 done
 
 # HTML generation tests that compare against pre-regenerated HTML output.
-for test_dir in tests/html/*
+for test_dir in tests/html/*/
 do
   cd $test_dir
   test_name=$(cat input.yaml | grep title | cut -d ' ' -f 4-)

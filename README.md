@@ -98,10 +98,9 @@ The input YAML file is divided into three main sections:
   applied to all markers by default. These settings can be overridden at the
   definition of each marker.
 
-- `map settings`: Global map settings such as the language used to display
-  labels on the map (e.g. country names) as well as external resources to inline
-  into the generated HTML page with the intent of modifying the map's style and
-  behavior.
+- `map settings`: Global map settings such as the name of the map tile provider
+  as well as external resources to inline into the generated HTML page with the
+  intent of modifying the map's style and behavior.
 
 - `markers`: List of markers to be displayed on the map. Each marker must have
   a pair of coordinates specifying its location. A marker is not required
@@ -155,17 +154,18 @@ The input YAML file is divided into three main sections:
 - `external javascript files`: List of JavaScript files to be inlined into the
   generated HTML page. The map can be manipulated through the `map` property of
   the global `mapgen` object (see [`template/mapgen.js`](https://github.com/dassencio/mapgen/tree/master/template/mapgen.js)).
-- `language`: Language used to display labels on the map (e.g. country, city
-  and street names). Valid values are `local` (to have labels in each country
-  be displayed in the country's official language) and short language
-  codes such as `en` and `de` (to have all labels be displayed in a specific
-  language). Valid language codes are listed in
-  [this article](https://meta.wikimedia.org/wiki/List_of_Wikipedias#All_Wikipedias_ordered_by_number_of_articles),
-  but not all labels are guaranteed to exist in every available language.
-  Defaults to `en` (English).
 
 - `show zoom control`: Whether zoom controls (`+`/`-` buttons) should be
   displayed or not. Valid values are `no` and `yes`. Defaults to `yes`.
+
+- `tile provider`: Name associated with the server from which map tiles will be
+  fetched. The tile provider name must be among those listed in the
+  [Leaflet-providers](https://github.com/leaflet-extras/leaflet-providers)
+  project. To preview what the map will look like with a certain provider,
+  visit the Leaflet-providers [demo page](https://leaflet-extras.github.io/leaflet-providers/preview/).
+  Make sure you do not violate the usage policy of your selected provider as
+  that may cause your application to be blocked by it. Defaults to
+  `OpenMapSurfer.Roads`.
 
 - `title`: Title to be displayed when the generated HTML page is opened in a
   web browser.

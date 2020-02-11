@@ -8,15 +8,6 @@ const mapgen = {
   // List containing the data for all markers.
   markers: __MAPGEN__MARKERS__,
 
-  // Attribution shown on the bottom-right corner of the map.
-  mapAttribution:
-    "&copy; <a href='https://wikimediafoundation.org/wiki/Maps_Terms_of_Use'>" +
-    "Wikimedia</a> © <a href='https://www.openstreetmap.org/copyright'>" +
-    "OpenStreetMap</a>",
-
-  // Map tile provider.
-  mapTileProvider: "https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png",
-
   // Reference to Leaflet map instance.
   map: null,
 
@@ -99,16 +90,7 @@ const mapgen = {
 
     this.map = L.map("map", {
       center: this.markers.length > 0 ? undefined : [18, 0],
-      layers: [
-        L.tileLayer(
-          this.mapTileProvider + "?lang=" + this.mapSettings["language"],
-          {
-            attribution: this.mapAttribution,
-            minZoom: 2,
-            maxZoom: 19
-          }
-        )
-      ],
+      layers: L.tileLayer.provider(this.mapSettings["tile provider"]),
       maxBounds: [[-120, -225], [120, 225]],
       maxBoundsViscosity: 1.0,
       zoom: this.markers.length > 0 ? undefined : 3,

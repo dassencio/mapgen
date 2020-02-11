@@ -204,8 +204,10 @@ def js_map_settings(map_settings):
     return {
         **map_settings,
         **{
-            "language": "en",
             "show zoom control": map_settings.get("show zoom control", "yes"),
+            "tile provider": map_settings.get(
+                "tile provider", "OpenMapSurfer.Roads"
+            ),
             "title": map_settings.get("title", "Untitled"),
             "zoom control position": map_settings.get(
                 "zoom control position", "top right"
@@ -320,6 +322,15 @@ def generate_html(yaml_str):
     # Insert the (pre-minified) contents of leaflet.js into the HTML template.
     with open(path_from_script("template/leaflet.js")) as leaflet_js:
         html = html.replace("__MAPGEN__LEAFLET_JS__", leaflet_js.read())
+
+    # Insert the (pre-minified) contents of leaflet-providers.js into the HTML
+    # template.
+    with open(
+        path_from_script("template/leaflet-providers.js")
+    ) as leaflet_provider_js:
+        html = html.replace(
+            "__MAPGEN__LEAFLET_PROVIDERS_JS__", leaflet_provider_js.read()
+        )
 
     # Minify, then insert the contents of mapgen.css into the HTML template.
     with open(path_from_script("template/mapgen.css")) as mapgen_css:

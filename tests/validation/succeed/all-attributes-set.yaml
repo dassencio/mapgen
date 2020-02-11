@@ -11,8 +11,8 @@ default marker settings:
 map settings:
   external css files: []
   external javascript files: []
-  language: local
   show zoom control: yes
+  tile provider: OpenStreetMap.DE
   title: Test with all attributes set
   zoom control position: bottom left
 markers:
