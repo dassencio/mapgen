@@ -44,12 +44,14 @@ Here are some more interesting examples:
 
 # License
 
-Except for files from the [Leaflet](https://leafletjs.com/) library and icons
-from [Flaticon](https://www.flaticon.com/), all files from this project are
-licensed under the GPLv3. See the [`LICENSE`](https://github.com/dassencio/mapgen/tree/master/LICENSE)
-file for more information.
+Except for files from the [Leaflet](https://leafletjs.com/) and
+[Leaflet-providers](https://github.com/leaflet-extras/leaflet-providers)
+libraries and icons from [Flaticon](https://www.flaticon.com/), all files from
+this project are licensed under the GPLv3. See the
+[`LICENSE`](https://github.com/dassencio/mapgen/tree/master/LICENSE) file for
+more information.
 
-Files from the Leaflet library are licensed under the
+Files from the Leaflet and Leaflet-providers libraries are licensed under the
 [2-clause BSD license](https://github.com/Leaflet/Leaflet/blob/master/LICENSE).
 
 Icons from Flaticon were produced by Google, Freepik and Smashicons. Those are
