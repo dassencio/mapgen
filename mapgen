@@ -206,7 +206,7 @@ def js_map_settings(map_settings):
         **{
             "show zoom control": map_settings.get("show zoom control", "yes"),
             "tile provider": map_settings.get(
-                "tile provider", "OpenMapSurfer.Roads"
+                "tile provider", "OpenStreetMap.Mapnik"
             ),
             "title": map_settings.get("title", "Untitled"),
             "zoom control position": map_settings.get(

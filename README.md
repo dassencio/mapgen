@@ -168,7 +168,7 @@ The input YAML file is divided into three main sections:
   visit the Leaflet-providers [demo page](https://leaflet-extras.github.io/leaflet-providers/preview/).
   Make sure you do not violate the usage policy of your selected provider as
   that may cause your application to be blocked by it. Defaults to
-  `OpenMapSurfer.Roads`.
+  `OpenStreetMap.Mapnik`.
 
 - `title`: Title to be displayed when the generated HTML page is opened in a
   web browser.
