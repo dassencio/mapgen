@@ -5,5 +5,5 @@ jsmin==2.2.2
 pykwalify==1.7.0
 python-dateutil==2.8.0
 PyYAML==5.1.1
-ruamel.yaml==0.15.97
+ruamel.yaml==0.16.12
 six==1.12.0
