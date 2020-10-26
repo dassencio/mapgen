@@ -1,4 +1,4 @@
-[![Build Status](https://api.travis-ci.com/dassencio/mapgen.svg?branch=master)](https://travis-ci.com/dassencio/mapgen)
+![Functional tests](https://github.com/dassencio/mapgen/workflows/Functional%20tests/badge.svg)
 
 # Description
 
