@@ -1,17 +1,13 @@
 #!/usr/bin/env bash
 
-red=$(echo -e "\e[1;31m")
-green=$(echo -e "\e[1;32m")
-normal=$(echo -e "\e[m")
-
 show_test_result() {
   local test_status=$1
   local test_name=$2
   test $test_status -ne 0 && {
-      echo "[${red}FAILED${normal}] $test_name."
+      echo "[FAILED] $test_name."
       exit 1
   }
-  echo "[${green}PASSED${normal}] $test_name."
+  echo "[PASSED] $test_name."
 }
 
 # YAML input validation tests that must succeed.
