@@ -4,6 +4,6 @@ htmlmin==0.1.12
 jsmin==3.0.0
 pykwalify==1.7.0
 python-dateutil==2.8.0
-PyYAML==5.4
+PyYAML==6.0
 ruamel.yaml==0.16.12
 six==1.12.0
